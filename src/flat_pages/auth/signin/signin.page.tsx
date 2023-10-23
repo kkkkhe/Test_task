@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import { sessionModel } from "@/src/entities/session";
 import { Input } from "@/src/shared/ui/data-entry/main-input";
 import { useRouter } from "next/router";
+import { validate } from "./lib";
 
 export const Signin = () => {
-  const [username, changeUsername] = useState("testuser");
-  const [password, changePassword] = useState("testpassword123");
+  const [username, changeUsername] = useState("");
+  const [password, changePassword] = useState("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [usernameError, setUsernameError] = useState<string>("");
   const error = useSelector(sessionModel.selectors.error);
@@ -46,7 +47,6 @@ export const Signin = () => {
           setPasswordError(passwordError);
           setUsernameError(usernameError);
         }}
-        action=""
       >
         <Input
           label="Username"
@@ -61,31 +61,12 @@ export const Signin = () => {
           onChange={(e) => changePassword(e.target.value)}
         />
         <Error error={error} />
-        <button>submit</button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded duration-150">Submit</button>
       </form>
     </div>
   );
 };
 
-function validate({
-  str,
-  max,
-  min,
-  label,
-}: {
-  str: string;
-  max: number;
-  min: number;
-  label: string;
-}) {
-  if (str.length > max) {
-    return `${label} is too long!`;
-  }
-  if (str.length < min) {
-    return `${label} is too short!`;
-  }
-  return "";
-}
 
 const Error = ({ error }: { error: string | null }) => {
   return (
