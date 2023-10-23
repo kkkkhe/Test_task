@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export const Pagination = ({ totalPages }: { totalPages: number }) => {
+export const Pagination = ({ count, limit = 10 }: { count: number, limit?: number }) => {
   const [pages, setPages] = useState<number[]>([]);
   const searchParams = useSearchParams();
+  const totalPages = Math.ceil(count / limit) - 1;
   const activePage = searchParams?.get("page")
     ? Number(searchParams.get("page"))
     : 0;

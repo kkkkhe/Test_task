@@ -8,21 +8,23 @@ import { useRouter } from "next/router";
 import { validate } from "./lib";
 
 export const Signin = () => {
+  //should move to redux state, to make fields persistent between pages
   const [username, changeUsername] = useState("");
   const [password, changePassword] = useState("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [usernameError, setUsernameError] = useState<string>("");
+
   const error = useSelector(sessionModel.selectors.error);
-  const user = useSelector(sessionModel.selectors.user);
+  const sessionUser = useSelector(sessionModel.selectors.user);
   const signIn = useAction(signInThunk);
 
   const router = useRouter();
-
+  // should not check it in component
   useEffect(() => {
-    if (user.username) {
-      router.push("/users");
+    if (sessionUser.username) {
+      router.push("/");
     }
-  }, [user]);
+  }, [sessionUser]);
   return (
     <div className="h-screen flex justify-center items-center">
       <form

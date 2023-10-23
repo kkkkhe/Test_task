@@ -6,16 +6,26 @@ import { UserItem } from "@/src/entities/user/ui/user-item";
 import { useAction } from "@/src/shared/lib/redux";
 import { Modal } from "@/src/shared/ui/modal";
 import { EditSvg } from "./assets/edit.svg";
+import { useEffect } from "react";
+import { sessionModel } from "@/src/entities/session";
+import { useRouter } from "next/router";
 
 const tableCols = ["Name", "Email", "Birthday", "Phone", "Address"];
 export const UsersPage = () => {
   const users = useSelector(userModel.selectors.users);
+  const sessionUser = useSelector(sessionModel.selectors.user);
   const usersCount = useSelector(userModel.selectors.count);
   const editableUserId = useSelector(userModel.selectors.editableUserId);
-  const totalPages = Math.ceil(usersCount / 10) - 1;
 
   const editUser = useAction(editUserThunk);
   const setEditableUser = useAction(userModel.actions.setEditableUserId);
+  const router = useRouter()
+  // should not check it in component
+  useEffect(() => {
+    if(!sessionUser.username) {
+      router.push('/login')
+    }
+  }, [sessionUser])
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <div className="grid bg-[#d0d0d0] grid-cols-5 text-black px-5 max-w-[75%] w-full">
@@ -38,7 +48,7 @@ export const UsersPage = () => {
           );
         })}
       </div>
-      <Pagination totalPages={totalPages} />
+      <Pagination count={usersCount} />
       <Modal
         isOpened={Boolean(editableUserId)}
         onClose={() => setEditableUser(null)}
