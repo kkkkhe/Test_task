@@ -2,8 +2,9 @@ import { User } from "@/src/entities/user";
 import { UserId } from "@/src/shared/api/user";
 import { useState, FormEvent } from "react";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
-import { checkError } from "../lib";
+import { checkValidity } from "../lib";
 import { Button } from "@/src/shared/ui/buttons/main";
+import { PHONE_REGEXP, EMAIL_REGEXP, BIRTHDATE_REGEXP } from "../config";
 
 type EditUserProps = {
   name: string;
@@ -27,14 +28,55 @@ export const EditForm = ({
   const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>("");
   const [isEmailInvalid, setIsEmailInvalid] = useState<string>("");
   const [isDateInvalid, setIsDateInvalid] = useState<string>("");
+  const [isNameInvalid, setIsNameInvalid] = useState<string>("");
+  const [isAddressInvalid, setIsAddressInvalid] = useState<string>("");
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const { errors } = checkError({ phone, email, date: birthday });
-    if (errors.isInvalid) {
-      setIsPhoneInvalid(errors.invalidPhoneMessage);
-      setIsEmailInvalid(errors.invalidEmailMessage);
-      setIsDateInvalid(errors.invalidDateMessage);
-      return;
+    const nameError = checkValidity({
+      value: name,
+      max: 255,
+      min: 1
+    })
+    const addressError = checkValidity({
+      value: name,
+      required: false,
+      min: 1
+    })
+    const phoneError = checkValidity({
+      value: phone,
+      pattern: PHONE_REGEXP,
+      max: 20,
+      min: 1
+    })
+    const emailError = checkValidity({
+      value: email,
+      pattern: EMAIL_REGEXP,
+      max: 254,
+      min: 1
+    })
+    const birthdayDateError = checkValidity({
+      value: birthday,
+      pattern: BIRTHDATE_REGEXP,
+      max: 254,
+      min: 1
+    })
+    if(phoneError){
+      setIsPhoneInvalid(phoneError)
+    }
+    if(emailError){
+      setIsEmailInvalid(emailError)
+    }
+    if(birthdayDateError){
+      setIsDateInvalid(birthdayDateError)
+    }
+    if(nameError){
+      setIsNameInvalid(nameError)
+    }
+    if(addressError){
+      setIsAddressInvalid(addressError)
+    }
+    if(!isPhoneInvalid || !isEmailInvalid || !isDateInvalid || !isNameInvalid || !isAddressInvalid){
+      return
     }
     edit({
       id: user.id,
