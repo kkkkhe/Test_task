@@ -12,18 +12,17 @@ export const editUserThunk = createAsyncThunk(
     try {
       const isAnyError = await dispatch(validateInputsThunk(data))
       if(isAnyError.payload) return
-      // const editedUser = await userApi.editUserQuery(id, {
-      //   ...data,
-      //   birthday_date: convertDate(data.birthday_date),
-      // });
-      // const editableUserId = userModel.selectors.editableUserId(
-      //   getState() as Record<string, any>,
-      // );
-      // dispatch(userModel.actions.editUser(editedUser));
-      // if (editedUser.id && editableUserId) {
-      //   dispatch(userModel.actions.setEditableUserId(null));
-      // }
-      
+      const editedUser = await userApi.editUserQuery(id, {
+        ...data,
+        birthday_date: convertDate(data.birthday_date),
+      });
+      const editableUserId = userModel.selectors.editableUserId(
+        getState() as Record<string, any>,
+      );
+      dispatch(userModel.actions.editUser(editedUser));
+      if (editedUser.id && editableUserId) {
+        dispatch(userModel.actions.setEditableUserId(null));
+      }
     } catch (error) {
       console.log(error)
     }
