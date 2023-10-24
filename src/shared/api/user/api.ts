@@ -49,4 +49,13 @@ export const createUserQuery = async (data: EditUserProps) => {
     body: JSON.stringify(data),
   });
   return (await response.json()) as UserDto;
-};
+}
+export const deleteUserQuery = async (id: UserId) => {
+  const response = await fetch(`https://technical-task-api.icapgroupgmbh.com/api/table/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return (await response.json());
+};;

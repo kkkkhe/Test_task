@@ -1,2 +1,2 @@
 export * as sessionModel from "./session.model";
-export type { Session as User } from "./types";
+export type { SessionUser } from "./types";

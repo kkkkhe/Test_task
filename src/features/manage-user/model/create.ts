@@ -1,6 +1,7 @@
 import { userModel } from "@/src/entities/user";
 import { userApi } from "@/src/shared/api/user";
 import { convertDate } from "@/src/shared/lib/convert-date";
+import { getCurrentPage } from "@/src/shared/lib/get-current-page";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 type EditUserProps = {
   name: string;
@@ -36,8 +37,3 @@ export const createUserThunk = createAsyncThunk(
     }
   },
 );
-const getCurrentPage = () => {
-  const url = new URL(window.location.href);
-  const currentPage = url.searchParams.get('page') || '1'
-  return +currentPage
-}

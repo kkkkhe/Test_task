@@ -1,3 +1,3 @@
-export type Session = {
+export type SessionUser = {
   username: string;
 };

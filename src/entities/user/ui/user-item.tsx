@@ -1,12 +1,15 @@
-import { ReactNode, useState } from "react";
 import { User } from "../types";
+import { EditSvg } from "../assets/edit.svg";
+import { DeleteSvg } from "../assets/delete.svg";
 
 export const UserItem = ({
   user,
-  editSlot,
+  onEdit,
+  onDelete
 }: {
   user: User;
-  editSlot: ReactNode;
+  onEdit: () => void,
+  onDelete: () => void
 }) => {
   return (
     <div
@@ -20,7 +23,24 @@ export const UserItem = ({
         <span>{user.phone_number}</span>
         <span>{user.address || "Address is not set"}</span>
       </div>
-      {editSlot}
+      <Edit onClick={onEdit}/>
+      <Delete onClick={onDelete}/>
     </div>
+  );
+};
+
+const Edit = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <button onClick={onClick}>
+      <EditSvg />
+    </button>
+  );
+};
+
+const Delete = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <button onClick={onClick}>
+      <DeleteSvg />
+    </button>
   );
 };

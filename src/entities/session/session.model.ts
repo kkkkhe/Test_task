@@ -1,5 +1,5 @@
 import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
-import { Session } from "./types";
+import { SessionUser } from "./types";
 const initialState = {
   user: {
     username: "",
@@ -13,7 +13,7 @@ const sessionSlice = createSlice({
   name,
   initialState,
   reducers: {
-    setUser(state, creds: PayloadAction<Session>) {
+    setUser(state, creds: PayloadAction<SessionUser>) {
       state.user.username = creds.payload.username;
       state.authenticated = true;
     },

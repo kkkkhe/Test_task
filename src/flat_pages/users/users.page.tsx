@@ -5,8 +5,7 @@ import { CreateForm, EditForm, createUserThunk, editUserThunk } from "@/src/feat
 import { UserItem } from "@/src/entities/user/ui/user-item";
 import { useAction } from "@/src/shared/lib/redux";
 import { Modal } from "@/src/shared/ui/modal";
-import { EditSvg } from "./assets/edit.svg";
-import { useState } from "react";
+import { deleteUserThunk } from "@/src/features/manage-user/model/delete";
 
 const tableCols = ["Name", "Email", "Birthday", "Phone", "Address"];
 export const UsersPage = () => {
@@ -14,7 +13,7 @@ export const UsersPage = () => {
   const usersCount = useSelector(userModel.selectors.count);
   const editableUserId = useSelector(userModel.selectors.editableUserId);
   const isUserCreatingModalOpened = useSelector(userModel.selectors.isUserCreatingModalOpened);
-
+  const deleteUser = useAction(deleteUserThunk)
   const editUser = useAction(editUserThunk);
   const createUser = useAction(createUserThunk);
   const setEditableUser = useAction(userModel.actions.setEditableUserId);
@@ -22,7 +21,7 @@ export const UsersPage = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <div className="flex flex-col max-w-[75%] w-full">
-        <div className="grid bg-[#d0d0d0] grid-cols-5 text-black px-5 w-full">
+        <div className="grid bg-[#d0d0d0] grid-cols-5 text-black px-5 pr-20 w-full">
             {tableCols.map((colName, id) => {
               return (
                 <span className="py-2 font-bold max-w-[217px]" key={id}>
@@ -37,7 +36,8 @@ export const UsersPage = () => {
                 <UserItem
                   key={user.id}
                   user={user}
-                  editSlot={<Edit onClick={() => setEditableUser(id)} />}
+                  onEdit={() => setEditableUser(user.id)}
+                  onDelete={() => deleteUser(user.id)}
                 />
               );
             })}
@@ -61,13 +61,5 @@ export const UsersPage = () => {
           </Modal>
         </div>
         </div>
-  );
-};
-
-const Edit = ({ onClick }: { onClick: () => void }) => {
-  return (
-    <button onClick={onClick}>
-      <EditSvg />
-    </button>
   );
 };

@@ -5,7 +5,7 @@ export type UserDto = {
   name: string;
   email: string;
   birthday_date: string;
-  phone_number: number;
+  phone_number: string;
   address: string;
 };
 

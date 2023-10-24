@@ -1,11 +1,16 @@
 import { User } from "@/src/entities/user";
 import { UserId } from "@/src/shared/api/user";
 import { useState, FormEvent } from "react";
-import { EditUserProps } from "../model/edit";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
-import { validateInput } from '@/src/shared/lib/validate-input'
-import { INVALID_EMAIL, INVALID_PHONE } from "../config";
 import { checkError } from "../lib";
+
+type EditUserProps = {
+  name: string;
+  email: string;
+  birthday_date: string;
+  phone_number: string;
+  address: string;
+};
 export const EditForm = ({
   user,
   edit,

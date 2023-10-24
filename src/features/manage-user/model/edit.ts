@@ -1,18 +1,11 @@
-import { userModel } from "@/src/entities/user";
+import { User, userModel } from "@/src/entities/user";
 import { userApi } from "@/src/shared/api/user";
 import { convertDate } from "@/src/shared/lib/convert-date";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-export type EditUserProps = {
-  name: string;
-  email: string;
-  birthday_date: string;
-  phone_number: string;
-  address: string;
-};
 export const editUserThunk = createAsyncThunk(
   "feature/manage/edit",
   async (
-    { id, data }: { id: number; data: EditUserProps },
+    { id, data }: { id: number; data: Omit<User, 'id'> },
     { dispatch, getState },
   ) => {
     const editedUser = await userApi.editUserQuery(id, {

@@ -1,11 +1,12 @@
 import { useState, FormEvent } from "react";
-import { EditUserProps } from "../model/edit";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
 import { checkError } from "../lib";
+import { User } from "@/src/entities/user";
+
 export const CreateForm = ({
   create,
 }: {
-  create: (data: EditUserProps) => void;
+  create: (data: Omit<User, 'id'>) => void;
 }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
