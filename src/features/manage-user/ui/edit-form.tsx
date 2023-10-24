@@ -27,11 +27,11 @@ export const EditForm = ({
   const [birthday, setBirthday] = useState(user.birthday_date);
   const [phone, setPhone] = useState(user.phone_number.toString());
   const [address, setAddress] = useState(user.address);
-  const nameError = useSelector(selectors.nameError)
-  const addressError = useSelector(selectors.addressError)
-  const emailError = useSelector(selectors.emailError)
-  const phoneError = useSelector(selectors.phoneError)
-  const dateError = useSelector(selectors.dateError)
+  const nameError = useSelector(selectors.nameError);
+  const addressError = useSelector(selectors.addressError);
+  const emailError = useSelector(selectors.emailError);
+  const phoneError = useSelector(selectors.phoneError);
+  const dateError = useSelector(selectors.dateError);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     edit({
@@ -89,9 +89,7 @@ export const EditForm = ({
         />
       </div>
       <div className="flex justify-end">
-        <Button>
-          Submit
-        </Button>
+        <Button>Submit</Button>
       </div>
     </form>
   );

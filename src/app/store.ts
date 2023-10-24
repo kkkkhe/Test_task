@@ -7,7 +7,7 @@ import { manageUser } from "../features/manage-user";
 const rootReducer = combineReducers({
   ...sessionModel.reducer,
   ...userModel.reducer,
-  ...manageUser.reducer
+  ...manageUser.reducer,
 });
 
 const createStore = (preloadedState: any) => {

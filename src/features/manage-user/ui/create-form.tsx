@@ -17,11 +17,11 @@ export const CreateForm = ({
   const [birthday, setBirthday] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const nameError = useSelector(selectors.nameError)
-  const addressError = useSelector(selectors.addressError)
-  const emailError = useSelector(selectors.emailError)
-  const phoneError = useSelector(selectors.phoneError)
-  const dateError = useSelector(selectors.dateError)
+  const nameError = useSelector(selectors.nameError);
+  const addressError = useSelector(selectors.addressError);
+  const emailError = useSelector(selectors.emailError);
+  const phoneError = useSelector(selectors.phoneError);
+  const dateError = useSelector(selectors.dateError);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     create({
@@ -41,7 +41,6 @@ export const CreateForm = ({
         <ManageInput
           type="text"
           value={name}
-
           error={nameError}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
@@ -76,9 +75,7 @@ export const CreateForm = ({
         />
       </div>
       <div className="flex justify-end">
-        <Button>
-          Submit
-        </Button>
+        <Button>Submit</Button>
       </div>
     </form>
   );

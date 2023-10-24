@@ -15,8 +15,8 @@ export const createUserThunk = createAsyncThunk(
   "feature/manage/create",
   async (data: EditUserProps, { dispatch, getState }) => {
     try {
-      const isAnyError = await dispatch(validateInputsThunk(data))
-      if(isAnyError.payload) return
+      const isAnyError = await dispatch(validateInputsThunk(data));
+      if (isAnyError.payload) return;
       const editableUserId = userModel.selectors.isUserCreatingModalOpened(
         getState() as Record<string, any>,
       );
