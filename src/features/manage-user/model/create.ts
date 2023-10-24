@@ -12,10 +12,7 @@ type EditUserProps = {
 };
 export const createUserThunk = createAsyncThunk(
   "feature/manage/create",
-  async (
-    data: EditUserProps,
-    { dispatch, getState },
-  ) => {
+  async (data: EditUserProps, { dispatch, getState }) => {
     try {
       const editableUserId = userModel.selectors.isUserCreatingModalOpened(
         getState() as Record<string, any>,
@@ -29,11 +26,11 @@ export const createUserThunk = createAsyncThunk(
       if (createdUser.id && editableUserId) {
         dispatch(userModel.actions.setUserCreatingState(false));
       }
-      const currentPage = getCurrentPage()
-      const refetch = await userApi.usersQuery({page: currentPage})
-      dispatch(userModel.actions.setUsers(refetch.results))
+      const currentPage = getCurrentPage();
+      const refetch = await userApi.usersQuery({ page: currentPage });
+      dispatch(userModel.actions.setUsers(refetch.results));
     } catch (error) {
-      console.log(error) 
+      console.log(error);
     }
   },
 );

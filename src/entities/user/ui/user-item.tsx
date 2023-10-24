@@ -5,11 +5,11 @@ import { DeleteSvg } from "../assets/delete.svg";
 export const UserItem = ({
   user,
   onEdit,
-  onDelete
+  onDelete,
 }: {
   user: User;
-  onEdit: () => void,
-  onDelete: () => void
+  onEdit: () => void;
+  onDelete: () => void;
 }) => {
   return (
     <div
@@ -23,8 +23,8 @@ export const UserItem = ({
         <span>{user.phone_number}</span>
         <span>{user.address || "Address is not set"}</span>
       </div>
-      <Edit onClick={onEdit}/>
-      <Delete onClick={onDelete}/>
+      <Edit onClick={onEdit} />
+      <Delete onClick={onDelete} />
     </div>
   );
 };

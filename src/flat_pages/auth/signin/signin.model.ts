@@ -17,7 +17,7 @@ export const signInThunk = createAsyncThunk(
     try {
       const response = await sessionApi.signInQuery(username, password);
       dispatch(sessionModel.actions.setUser({ username }));
-      return response
+      return response;
     } catch (error: any) {
       dispatch(sessionModel.actions.setError(handleError(error.message)));
     }

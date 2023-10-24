@@ -23,17 +23,17 @@ export const EditForm = ({
   const [birthday, setBirthday] = useState(user.birthday_date);
   const [phone, setPhone] = useState(user.phone_number.toString());
   const [address, setAddress] = useState(user.address);
-  const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>('')
-  const [isEmailInvalid, setIsEmailInvalid] = useState<string>('')
-  const [isDateInvalid, setIsDateInvalid] = useState<string>('')
+  const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>("");
+  const [isEmailInvalid, setIsEmailInvalid] = useState<string>("");
+  const [isDateInvalid, setIsDateInvalid] = useState<string>("");
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const {errors} = checkError({phone, email, date: birthday})
+    const { errors } = checkError({ phone, email, date: birthday });
     if (errors.isInvalid) {
-      setIsPhoneInvalid(errors.invalidPhoneMessage)
-      setIsEmailInvalid(errors.invalidEmailMessage)
-      setIsDateInvalid(errors.invalidDateMessage)
-      return
+      setIsPhoneInvalid(errors.invalidPhoneMessage);
+      setIsEmailInvalid(errors.invalidEmailMessage);
+      setIsDateInvalid(errors.invalidDateMessage);
+      return;
     }
     edit({
       id: user.id,
@@ -88,9 +88,10 @@ export const EditForm = ({
         />
       </div>
       <div className="flex justify-end">
-        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Submit</button>
+        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+          Submit
+        </button>
       </div>
     </form>
   );
 };
-

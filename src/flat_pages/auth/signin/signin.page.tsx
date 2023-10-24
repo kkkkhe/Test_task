@@ -23,7 +23,7 @@ export const Signin = () => {
   // should not check it in component
   useEffect(() => {
     if (sessionUser.username) {
-      router.push('/users', undefined, {shallow:true})
+      router.push("/users", undefined, { shallow: true });
     }
   }, [sessionUser]);
   return (
@@ -64,7 +64,9 @@ export const Signin = () => {
           onChange={(e) => changePassword(e.target.value)}
         />
         <Error error={error} />
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded duration-150">Submit</button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded duration-150">
+          Submit
+        </button>
       </form>
     </div>
   );

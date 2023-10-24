@@ -10,4 +10,3 @@ export function convertDate(inputDate: string) {
   const formattedDate = newDate.toISOString().slice(0, 10);
   return formattedDate;
 }
-

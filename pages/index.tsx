@@ -15,9 +15,7 @@ const Home = () => {
           </ul>
         </nav>
       </header>
-      <main>
-        home page for convenience
-      </main>
+      <main>home page for convenience</main>
     </div>
   );
 };

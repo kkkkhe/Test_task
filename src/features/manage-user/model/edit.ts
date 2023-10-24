@@ -5,7 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const editUserThunk = createAsyncThunk(
   "feature/manage/edit",
   async (
-    { id, data }: { id: number; data: Omit<User, 'id'> },
+    { id, data }: { id: number; data: Omit<User, "id"> },
     { dispatch, getState },
   ) => {
     const editedUser = await userApi.editUserQuery(id, {

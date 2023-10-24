@@ -1,10 +1,10 @@
 import { InputHTMLAttributes } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  error?: string
-}
+  error?: string;
+};
 export const ManageInput = (props: InputProps) => {
-  const {error, ...rest} = props
+  const { error, ...rest } = props;
   return (
     <label className="relative flex w-full flex-col">
       <label

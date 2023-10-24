@@ -2,7 +2,13 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export const Pagination = ({ count, limit = 10 }: { count: number, limit?: number }) => {
+export const Pagination = ({
+  count,
+  limit = 10,
+}: {
+  count: number;
+  limit?: number;
+}) => {
   const [pages, setPages] = useState<number[]>([]);
   const searchParams = useSearchParams();
   const totalPages = Math.ceil(count / limit) - 1;

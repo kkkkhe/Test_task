@@ -37,7 +37,7 @@ const usersSlice = createSlice({
     },
     insertUser(state, user: PayloadAction<User>) {
       state.users = [user.payload, ...state.users];
-    }
+    },
   },
 });
 
@@ -62,7 +62,7 @@ export const selectors = {
   users,
   count,
   editableUserId,
-  isUserCreatingModalOpened
+  isUserCreatingModalOpened,
 };
 
 export const actions = {
@@ -72,7 +72,7 @@ export const actions = {
   editUser: usersSlice.actions.editUser,
   setEditableUserId: usersSlice.actions.setEditableUser,
   setUserCreatingState: usersSlice.actions.setUserCreatingState,
-  insertUser: usersSlice.actions.insertUser
+  insertUser: usersSlice.actions.insertUser,
 };
 
 export const reducer = { [usersSlice.name]: usersSlice.reducer };

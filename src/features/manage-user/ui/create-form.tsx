@@ -6,24 +6,24 @@ import { User } from "@/src/entities/user";
 export const CreateForm = ({
   create,
 }: {
-  create: (data: Omit<User, 'id'>) => void;
+  create: (data: Omit<User, "id">) => void;
 }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>('')
-  const [isEmailInvalid, setIsEmailInvalid] = useState<string>('')
-  const [isDateInvalid, setIsDateInvalid] = useState<string>('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>("");
+  const [isEmailInvalid, setIsEmailInvalid] = useState<string>("");
+  const [isDateInvalid, setIsDateInvalid] = useState<string>("");
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const {errors} = checkError({phone, email, date: birthday})
+    const { errors } = checkError({ phone, email, date: birthday });
     if (errors.isInvalid) {
-      setIsPhoneInvalid(errors.invalidPhoneMessage)
-      setIsEmailInvalid(errors.invalidEmailMessage)
-      setIsDateInvalid(errors.invalidDateMessage)
-      return
+      setIsPhoneInvalid(errors.invalidPhoneMessage);
+      setIsEmailInvalid(errors.invalidEmailMessage);
+      setIsDateInvalid(errors.invalidDateMessage);
+      return;
     }
     create({
       name,
@@ -74,7 +74,9 @@ export const CreateForm = ({
         />
       </div>
       <div className="flex justify-end">
-        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Submit</button>
+        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+          Submit
+        </button>
       </div>
     </form>
   );

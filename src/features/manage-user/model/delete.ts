@@ -5,17 +5,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const deleteUserThunk = createAsyncThunk(
   "feature/manage/delete",
-  async (
-    id: UserId,
-    { dispatch },
-  ) => {
+  async (id: UserId, { dispatch }) => {
     try {
       await userApi.deleteUserQuery(id);
-      const currentPage = getCurrentPage()
-      const refetch = await userApi.usersQuery({page: currentPage})
-      dispatch(userModel.actions.setUsers(refetch.results))
+      const currentPage = getCurrentPage();
+      const refetch = await userApi.usersQuery({ page: currentPage });
+      dispatch(userModel.actions.setUsers(refetch.results));
     } catch (error) {
-      console.log(error) 
+      console.log(error);
     }
   },
 );

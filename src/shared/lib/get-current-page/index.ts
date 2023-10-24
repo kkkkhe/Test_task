@@ -1,1 +1,1 @@
-export { getCurrentPage } from './get-current-page'
+export { getCurrentPage } from "./get-current-page";
