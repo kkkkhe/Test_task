@@ -13,15 +13,15 @@ export const checkValidation = ({
 }) => {
 
   if (required && (!value || value.trim() === '')) {
-    return 'Value is required.';
+    return 'Field is required.';
   }
   if (pattern && !pattern.test(value)) {
-    return 'Value does not match the provided pattern.';
+    return 'Invalid valid.';
   }
-  if (min !== undefined && value.length < min) {
+  if (min && value.length < min) {
     return `Value is too short. Minimum length is ${min}.`;
   }
-  if (max !== undefined && value.length > max) {
+  if (max && value.length > max) {
     return `Value is too long. Maximum length is ${max}.`;
   }
 }
