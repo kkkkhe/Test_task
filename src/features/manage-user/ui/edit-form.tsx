@@ -1,12 +1,13 @@
 import { User } from "@/src/entities/user";
 import { UserId } from "@/src/shared/api/user";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
 import { checkValidation } from "../lib";
 import { Button } from "@/src/shared/ui/buttons/main";
 import { PHONE_REGEXP, EMAIL_REGEXP, BIRTHDATE_REGEXP } from "../config";
 import { useSelector } from "react-redux";
-import { selectors } from "../model/core";
+import { actions, selectors } from "../model/core";
+import { useAction } from "@/src/shared/lib/redux";
 
 type EditUserProps = {
   name: string;
@@ -27,11 +28,19 @@ export const EditForm = ({
   const [birthday, setBirthday] = useState(user.birthday_date);
   const [phone, setPhone] = useState(user.phone_number.toString());
   const [address, setAddress] = useState(user.address);
+
+  const resetErrors = useAction(actions.resetErrors)
+
   const nameError = useSelector(selectors.nameError);
   const addressError = useSelector(selectors.addressError);
   const emailError = useSelector(selectors.emailError);
   const phoneError = useSelector(selectors.phoneError);
   const dateError = useSelector(selectors.dateError);
+  useEffect(() => {
+    return () => {
+      resetErrors()
+    }
+  }, [])
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     edit({

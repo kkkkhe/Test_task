@@ -1,11 +1,12 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
 import { checkValidation } from "../lib";
 import { User } from "@/src/entities/user";
 import { Button } from "@/src/shared/ui/buttons/main";
 import { BIRTHDATE_REGEXP, EMAIL_REGEXP, PHONE_REGEXP } from "../config";
 import { useSelector } from "react-redux";
-import { selectors } from "../model/core";
+import { actions, selectors } from "../model/core";
+import { useAction } from "@/src/shared/lib/redux";
 
 export const CreateForm = ({
   create,
@@ -17,11 +18,18 @@ export const CreateForm = ({
   const [birthday, setBirthday] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+
+  const resetErrors = useAction(actions.resetErrors)
   const nameError = useSelector(selectors.nameError);
   const addressError = useSelector(selectors.addressError);
   const emailError = useSelector(selectors.emailError);
   const phoneError = useSelector(selectors.phoneError);
   const dateError = useSelector(selectors.dateError);
+  useEffect(() => {
+    return () => {
+      resetErrors()
+    }
+  }, [])
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     create({
