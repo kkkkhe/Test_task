@@ -37,7 +37,10 @@ export const UsersPage = () => {
                   key={user.id}
                   user={user}
                   onEdit={() => setEditableUser(user.id)}
-                  onDelete={() => deleteUser(user.id)}
+                  onDelete={() => {
+                    alert('There is an endpoint for that, but it is not working eventually')
+                    deleteUser(user.id)
+                  }}
                 />
               );
             })}

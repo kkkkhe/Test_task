@@ -22,9 +22,5 @@ export const signInQuery = async (username: string, password: string) => {
     };
   }
   const data = (await response.json()) as ErrorMessage;
-  return {
-    message: data.error,
-    status: 405,
-    user: {},
-  };
+  throw new Error(data.error)
 };

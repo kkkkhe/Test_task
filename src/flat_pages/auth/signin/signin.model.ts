@@ -14,12 +14,13 @@ export const signInThunk = createAsyncThunk(
     },
     { dispatch },
   ) => {
-    const response = await sessionApi.signInQuery(username, password);
-    if (response.status > 200 && response.status < 300) {
+    try {
+      const response = await sessionApi.signInQuery(username, password);
       dispatch(sessionModel.actions.setUser({ username }));
-      return;
+      return response
+    } catch (error: any) {
+      dispatch(sessionModel.actions.setError(handleError(error.message)));
     }
-    dispatch(sessionModel.actions.setError(handleError(response.message)));
   },
 );
 

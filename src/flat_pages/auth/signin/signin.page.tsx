@@ -6,11 +6,12 @@ import { sessionModel } from "@/src/entities/session";
 import { Input } from "@/src/shared/ui/data-entry/main-input";
 import { Router, useRouter } from "next/router";
 import { validate } from "./lib";
+import { Error } from "./ui/error";
 
 export const Signin = () => {
   //should move to redux state, to make fields persistent between pages
-  const [username, changeUsername] = useState("testuser");
-  const [password, changePassword] = useState("testpassword123");
+  const [username, changeUsername] = useState("");
+  const [password, changePassword] = useState("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [usernameError, setUsernameError] = useState<string>("");
 
@@ -65,15 +66,6 @@ export const Signin = () => {
         <Error error={error} />
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded duration-150">Submit</button>
       </form>
-    </div>
-  );
-};
-
-
-const Error = ({ error }: { error: string | null }) => {
-  return (
-    <div className="h-10">
-      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 };
