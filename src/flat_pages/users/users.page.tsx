@@ -45,7 +45,7 @@ export const UsersPage = () => {
               <UserItem
                 key={user.id}
                 user={user}
-                onEdit={() => setEditableUser(user.id)}
+                onEdit={() => setEditableUser(id)}
                 onDelete={() => {
                   alert(
                     "There is an endpoint for that, but it is not working eventually",

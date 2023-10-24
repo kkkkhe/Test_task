@@ -3,6 +3,7 @@ import { UserId } from "@/src/shared/api/user";
 import { useState, FormEvent } from "react";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
 import { checkError } from "../lib";
+import { Button } from "@/src/shared/ui/buttons/main";
 
 type EditUserProps = {
   name: string;
@@ -88,9 +89,9 @@ export const EditForm = ({
         />
       </div>
       <div className="flex justify-end">
-        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+        <Button>
           Submit
-        </button>
+        </Button>
       </div>
     </form>
   );

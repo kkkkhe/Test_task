@@ -14,7 +14,7 @@ export const ManageInput = (props: InputProps) => {
       >
         {error ? error : props.placeholder}
       </label>
-      <input type="text" {...rest} className="p-2 w-full outline-none" />
+      <input type="text" {...rest} className="p-2 w-full outline-none rounded-[5px]" />
     </label>
   );
 };
