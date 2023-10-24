@@ -9,14 +9,14 @@ export const usersQuery = async ({
   limit?: number;
 }) => {
   const offset = limit * page;
-  const response = await fetch(`http://146.190.118.121/api/table/`, {
+  const response = await fetch(`https://technical-task-api.icapgroupgmbh.com/api/table?offset=${offset}&limit=${limit}`, {
     method: "GET",
   });
   return (await response.json()) as GetUsersDto;
 };
 
 export const userQuery = async (id: string) => {
-  const response = await fetch(`http://146.190.118.121/api/table/${id}`, {
+  const response = await fetch(`https://technical-task-api.icapgroupgmbh.com/api/table/${id}`, {
     method: "GET",
   });
   return (await response.json()) as UserDto;
@@ -30,13 +30,23 @@ export type EditUserProps = {
   address: string;
 };
 export const editUserQuery = async (id: UserId, data: EditUserProps) => {
-  const response = await fetch(`http://146.190.118.121/api/table/${id}/`, {
+  const response = await fetch(`https://technical-task-api.icapgroupgmbh.com/api/table/${id}/`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
-  console.log(response);
+  return (await response.json()) as UserDto;
+};
+
+export const createUserQuery = async (data: EditUserProps) => {
+  const response = await fetch(`https://technical-task-api.icapgroupgmbh.com/api/table/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
   return (await response.json()) as UserDto;
 };

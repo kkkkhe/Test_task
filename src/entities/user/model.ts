@@ -7,6 +7,7 @@ const initialState = {
   next: "",
   previous: "",
   editableUser: null as null | UserId,
+  isUserCreating: false,
 };
 type State = typeof initialState;
 const name = "entities/users";
@@ -31,6 +32,12 @@ const usersSlice = createSlice({
     setEditableUser(state, userId: PayloadAction<null | UserId>) {
       state.editableUser = userId.payload;
     },
+    setUserCreatingState(state, userId: PayloadAction<boolean>) {
+      state.isUserCreating = userId.payload;
+    },
+    insertUser(state, user: PayloadAction<User>) {
+      state.users = [user.payload, ...state.users];
+    }
   },
 });
 
@@ -46,11 +53,16 @@ const editableUserId = createSelector(
   (state: Record<typeof name, State>) => state,
   (state) => state[name].editableUser,
 );
+const isUserCreatingModalOpened = createSelector(
+  (state: Record<typeof name, State>) => state,
+  (state) => state[name].isUserCreating,
+);
 
 export const selectors = {
   users,
   count,
   editableUserId,
+  isUserCreatingModalOpened
 };
 
 export const actions = {
@@ -59,6 +71,8 @@ export const actions = {
   setCount: usersSlice.actions.setCount,
   editUser: usersSlice.actions.editUser,
   setEditableUserId: usersSlice.actions.setEditableUser,
+  setUserCreatingState: usersSlice.actions.setUserCreatingState,
+  insertUser: usersSlice.actions.insertUser
 };
 
 export const reducer = { [usersSlice.name]: usersSlice.reducer };

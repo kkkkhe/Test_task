@@ -35,7 +35,7 @@ const error = createSelector(
   (state: Record<typeof name, State>) => state,
   (state) => state[name].error,
 );
-const authenticated = createSelector(
+const isAuthenticated = createSelector(
   (state: Record<typeof name, State>) => state,
   (state) => state[name].authenticated,
 );
@@ -43,7 +43,7 @@ const authenticated = createSelector(
 export const selectors = {
   user,
   error,
-  authenticated,
+  isAuthenticated,
 };
 
 export const actions = {

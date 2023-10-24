@@ -1,20 +1,25 @@
-import { initializeStore } from "@/src/app/store";
-import { UsersPage, usersThunk } from "@/src/flat_pages/users";
-import { userApi } from "@/src/shared/api/user";
-import { GetServerSideProps } from "next";
-const Users = () => {
-  return <UsersPage />;
+import Link from "next/link";
+
+const Home = () => {
+  return (
+    <div className="text-white px-5">
+      <header className="mb-5">
+        <nav>
+          <ul className="w-full flex font-bold gap-x-5">
+            <li>
+              <Link href="/login">Login</Link>
+            </li>
+            <li>
+              <Link href="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        home page for convenience
+      </main>
+    </div>
+  );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const page = (ctx.query?.page as number | undefined) || 1;
-  const users = await userApi.usersQuery({ page: page });
-  const store = initializeStore({});
-  store.dispatch(usersThunk(users));
-  return {
-    props: {
-      initialReduxState: store.getState(),
-    },
-  };
-};
-export default Users;
+export default Home;

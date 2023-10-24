@@ -8,7 +8,7 @@ export const Pagination = ({ count, limit = 10 }: { count: number, limit?: numbe
   const totalPages = Math.ceil(count / limit) - 1;
   const activePage = searchParams?.get("page")
     ? Number(searchParams.get("page"))
-    : 0;
+    : 1;
   const leftPointer = activePage - 3 <= 1 ? 0 : activePage - 3;
   const rightPointer =
     activePage + 3 >= totalPages ? totalPages : activePage + 3;
@@ -20,7 +20,7 @@ export const Pagination = ({ count, limit = 10 }: { count: number, limit?: numbe
     );
   }, [activePage, totalPages, leftPointer, rightPointer]);
   return (
-    <div className="flex items-center pt-5 gap-x-5">
+    <div className="flex items-center gap-x-5">
       <div className="flex gap-x-2 items-center">
         {pages.map((page) => {
           return <PaginateButton active={activePage} page={page} key={page} />;

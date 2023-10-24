@@ -4,13 +4,13 @@ import { signInThunk } from "./signin.model";
 import { useSelector } from "react-redux";
 import { sessionModel } from "@/src/entities/session";
 import { Input } from "@/src/shared/ui/data-entry/main-input";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { validate } from "./lib";
 
 export const Signin = () => {
   //should move to redux state, to make fields persistent between pages
-  const [username, changeUsername] = useState("");
-  const [password, changePassword] = useState("");
+  const [username, changeUsername] = useState("testuser");
+  const [password, changePassword] = useState("testpassword123");
   const [passwordError, setPasswordError] = useState<string>("");
   const [usernameError, setUsernameError] = useState<string>("");
 
@@ -22,7 +22,7 @@ export const Signin = () => {
   // should not check it in component
   useEffect(() => {
     if (sessionUser.username) {
-      router.push("/");
+      router.push('/users', undefined, {shallow:true})
     }
   }, [sessionUser]);
   return (

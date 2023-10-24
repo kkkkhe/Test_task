@@ -1,23 +1,17 @@
-import { User } from "@/src/entities/user";
-import { UserId } from "@/src/shared/api/user";
 import { useState, FormEvent } from "react";
 import { EditUserProps } from "../model/edit";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
-import { validateInput } from '@/src/shared/lib/validate-input'
-import { INVALID_EMAIL, INVALID_PHONE } from "../config";
 import { checkError } from "../lib";
-export const EditForm = ({
-  user,
-  edit,
+export const CreateForm = ({
+  create,
 }: {
-  user: User;
-  edit: ({ id, data }: { id: UserId; data: EditUserProps }) => void;
+  create: (data: EditUserProps) => void;
 }) => {
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [birthday, setBirthday] = useState(user.birthday_date);
-  const [phone, setPhone] = useState(user.phone_number.toString());
-  const [address, setAddress] = useState(user.address);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
   const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>('')
   const [isEmailInvalid, setIsEmailInvalid] = useState<string>('')
   const [isDateInvalid, setIsDateInvalid] = useState<string>('')
@@ -30,22 +24,18 @@ export const EditForm = ({
       setIsDateInvalid(errors.invalidDateMessage)
       return
     }
-    edit({
-      id: user.id,
-      data: {
-        name,
-        email,
-        birthday_date: birthday,
-        phone_number: phone,
-        address,
-      },
+    create({
+      name,
+      email,
+      birthday_date: birthday,
+      phone_number: phone,
+      address,
     });
   };
   return (
     <form
       onSubmit={handleSubmit}
       className="p-2 border text-md border-b-grey w-[700px]"
-      key={user.id}
     >
       <div className="mb-4">
         <ManageInput
@@ -88,4 +78,3 @@ export const EditForm = ({
     </form>
   );
 };
-
