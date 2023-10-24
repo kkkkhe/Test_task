@@ -12,7 +12,7 @@ export const checkError = ({
 }) => {
   const isNumberValid = validateInput(
     phone,
-    /^(?:\+38|38|8)?(?:0\d{9}|[0-9]{7,12})$/,
+    /^(?:\+380|380)\d{9}$/,
   );
   const isEmailValid = validateInput(
     email,
