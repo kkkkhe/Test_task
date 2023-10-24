@@ -1,9 +1,10 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, useState } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   error?: string;
 };
 export const ManageInput = (props: InputProps) => {
+  const [isError, setError] = useState()
   const { error, ...rest } = props;
   return (
     <label className="relative flex w-full flex-col">
@@ -14,7 +15,7 @@ export const ManageInput = (props: InputProps) => {
       >
         {error ? error : props.placeholder}
       </label>
-      <input type="text" {...rest} className="p-2 w-full outline-none rounded-[5px]" />
+      <input onSubmit={() => console.log('submit')} type="text" {...rest} className="p-2 w-full outline-none rounded-[5px]" />
     </label>
   );
 };

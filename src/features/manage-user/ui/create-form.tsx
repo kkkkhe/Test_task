@@ -1,8 +1,11 @@
 import { useState, FormEvent } from "react";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
-import { checkError } from "../lib";
+import { checkValidation } from "../lib";
 import { User } from "@/src/entities/user";
 import { Button } from "@/src/shared/ui/buttons/main";
+import { BIRTHDATE_REGEXP, EMAIL_REGEXP, PHONE_REGEXP } from "../config";
+import { useSelector } from "react-redux";
+import { selectors } from "../model/core";
 
 export const CreateForm = ({
   create,
@@ -14,18 +17,13 @@ export const CreateForm = ({
   const [birthday, setBirthday] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>("");
-  const [isEmailInvalid, setIsEmailInvalid] = useState<string>("");
-  const [isDateInvalid, setIsDateInvalid] = useState<string>("");
+  const nameError = useSelector(selectors.nameError)
+  const addressError = useSelector(selectors.addressError)
+  const emailError = useSelector(selectors.emailError)
+  const phoneError = useSelector(selectors.phoneError)
+  const dateError = useSelector(selectors.dateError)
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const { errors } = checkError({ phone, email, date: birthday });
-    if (errors.isInvalid) {
-      setIsPhoneInvalid(errors.invalidPhoneMessage);
-      setIsEmailInvalid(errors.invalidEmailMessage);
-      setIsDateInvalid(errors.invalidDateMessage);
-      return;
-    }
     create({
       name,
       email,
@@ -43,32 +41,35 @@ export const CreateForm = ({
         <ManageInput
           type="text"
           value={name}
+
+          error={nameError}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
         />
         <ManageInput
           type="text"
           value={email}
-          error={isEmailInvalid}
+          error={emailError}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
         <ManageInput
           type="text"
           value={birthday}
-          error={isDateInvalid}
+          error={dateError}
           onChange={(e) => setBirthday(e.target.value)}
           placeholder="Birthday"
         />
         <ManageInput
           type="text"
           value={phone}
-          error={isPhoneInvalid}
+          error={phoneError}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="Phone"
         />
         <ManageInput
           type="text"
+          error={addressError}
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Address"

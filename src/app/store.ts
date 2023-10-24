@@ -2,10 +2,12 @@ import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { sessionModel } from "../entities/session";
 import { userModel } from "../entities/user";
+import { manageUser } from "../features/manage-user";
 
 const rootReducer = combineReducers({
   ...sessionModel.reducer,
   ...userModel.reducer,
+  ...manageUser.reducer
 });
 
 const createStore = (preloadedState: any) => {

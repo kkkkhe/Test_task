@@ -5,6 +5,8 @@ import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
 import { checkValidation } from "../lib";
 import { Button } from "@/src/shared/ui/buttons/main";
 import { PHONE_REGEXP, EMAIL_REGEXP, BIRTHDATE_REGEXP } from "../config";
+import { useSelector } from "react-redux";
+import { selectors } from "../model/core";
 
 type EditUserProps = {
   name: string;
@@ -25,59 +27,13 @@ export const EditForm = ({
   const [birthday, setBirthday] = useState(user.birthday_date);
   const [phone, setPhone] = useState(user.phone_number.toString());
   const [address, setAddress] = useState(user.address);
-  const [isPhoneInvalid, setIsPhoneInvalid] = useState<string>("");
-  const [isEmailInvalid, setIsEmailInvalid] = useState<string>("");
-  const [isDateInvalid, setIsDateInvalid] = useState<string>("");
-  const [isNameInvalid, setIsNameInvalid] = useState<string>("");
-  const [isAddressInvalid, setIsAddressInvalid] = useState<string>("");
+  const nameError = useSelector(selectors.nameError)
+  const addressError = useSelector(selectors.addressError)
+  const emailError = useSelector(selectors.emailError)
+  const phoneError = useSelector(selectors.phoneError)
+  const dateError = useSelector(selectors.dateError)
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const nameError = checkValidation({
-      value: name,
-      max: 255,
-      min: 1
-    })
-    const addressError = checkValidation({
-      value: name,
-      required: false,
-      min: 1
-    })
-    const phoneError = checkValidation({
-      value: phone,
-      pattern: PHONE_REGEXP,
-      max: 20,
-      min: 1
-    })
-    const emailError = checkValidation({
-      value: email,
-      pattern: EMAIL_REGEXP,
-      max: 254,
-      min: 1
-    })
-    const birthdayDateError = checkValidation({
-      value: birthday,
-      pattern: BIRTHDATE_REGEXP,
-      max: 254,
-      min: 1
-    })
-    if(phoneError){
-      setIsPhoneInvalid(phoneError)
-    }
-    if(emailError){
-      setIsEmailInvalid(emailError)
-    }
-    if(birthdayDateError){
-      setIsDateInvalid(birthdayDateError)
-    }
-    if(nameError){
-      setIsNameInvalid(nameError)
-    }
-    if(addressError){
-      setIsAddressInvalid(addressError)
-    }
-    if(isPhoneInvalid || isEmailInvalid || isDateInvalid || isNameInvalid || isAddressInvalid){
-      return
-    }
     edit({
       id: user.id,
       data: {
@@ -99,32 +55,34 @@ export const EditForm = ({
         <ManageInput
           type="text"
           value={name}
+          error={nameError}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
         />
         <ManageInput
           type="text"
           value={email}
-          error={isEmailInvalid}
+          error={emailError}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
         <ManageInput
           type="text"
           value={birthday}
-          error={isDateInvalid}
+          error={dateError}
           onChange={(e) => setBirthday(e.target.value)}
           placeholder="Birthday"
         />
         <ManageInput
           type="text"
           value={phone}
-          error={isPhoneInvalid}
+          error={phoneError}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="Phone"
         />
         <ManageInput
           type="text"
+          error={addressError}
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Address"

@@ -3,6 +3,7 @@ import { userApi } from "@/src/shared/api/user";
 import { convertDate } from "@/src/shared/lib/convert-date";
 import { getCurrentPage } from "@/src/shared/lib/get-current-page";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { validateInputsThunk } from "./core";
 type EditUserProps = {
   name: string;
   email: string;
@@ -14,6 +15,8 @@ export const createUserThunk = createAsyncThunk(
   "feature/manage/create",
   async (data: EditUserProps, { dispatch, getState }) => {
     try {
+      const isAnyError = await dispatch(validateInputsThunk(data))
+      if(isAnyError.payload) return
       const editableUserId = userModel.selectors.isUserCreatingModalOpened(
         getState() as Record<string, any>,
       );
