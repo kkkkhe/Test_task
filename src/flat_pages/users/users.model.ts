@@ -18,6 +18,6 @@ export const usersPaginateThunk = createAsyncThunk(
     { dispatch },
   ) => {
     const users = await userApi.usersQuery({ page });
-    // dispatch(userModel.actions.setUsers(users.results))
+    dispatch(userModel.actions.setUsers(users.results))
   },
 );

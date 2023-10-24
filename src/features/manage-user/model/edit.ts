@@ -23,7 +23,7 @@ export const editUserThunk = createAsyncThunk(
     );
     dispatch(userModel.actions.editUser(editedUser));
     if (editedUser.id && editableUserId) {
-      console.log(editableUserId);
+      dispatch(userModel.actions.setEditableUserId(null));
     }
   },
 );
