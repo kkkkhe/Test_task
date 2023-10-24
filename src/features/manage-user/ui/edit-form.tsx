@@ -2,7 +2,7 @@ import { User } from "@/src/entities/user";
 import { UserId } from "@/src/shared/api/user";
 import { useState, FormEvent } from "react";
 import { ManageInput } from "@/src/shared/ui/data-entry/manage-input";
-import { checkValidity } from "../lib";
+import { checkValidation } from "../lib";
 import { Button } from "@/src/shared/ui/buttons/main";
 import { PHONE_REGEXP, EMAIL_REGEXP, BIRTHDATE_REGEXP } from "../config";
 
@@ -32,29 +32,29 @@ export const EditForm = ({
   const [isAddressInvalid, setIsAddressInvalid] = useState<string>("");
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const nameError = checkValidity({
+    const nameError = checkValidation({
       value: name,
       max: 255,
       min: 1
     })
-    const addressError = checkValidity({
+    const addressError = checkValidation({
       value: name,
       required: false,
       min: 1
     })
-    const phoneError = checkValidity({
+    const phoneError = checkValidation({
       value: phone,
       pattern: PHONE_REGEXP,
       max: 20,
       min: 1
     })
-    const emailError = checkValidity({
+    const emailError = checkValidation({
       value: email,
       pattern: EMAIL_REGEXP,
       max: 254,
       min: 1
     })
-    const birthdayDateError = checkValidity({
+    const birthdayDateError = checkValidation({
       value: birthday,
       pattern: BIRTHDATE_REGEXP,
       max: 254,
@@ -75,7 +75,7 @@ export const EditForm = ({
     if(addressError){
       setIsAddressInvalid(addressError)
     }
-    if(!isPhoneInvalid || !isEmailInvalid || !isDateInvalid || !isNameInvalid || !isAddressInvalid){
+    if(isPhoneInvalid || isEmailInvalid || isDateInvalid || isNameInvalid || isAddressInvalid){
       return
     }
     edit({
